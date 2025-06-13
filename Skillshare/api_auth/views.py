@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView 
 from django.urls import reverse_lazy
+from django.contrib.auth.models import Group
 
 from .models import User  # Assuming User model is defined in models.py
 # Create your views here.
@@ -38,3 +39,6 @@ class UserView(CreateView):
     model = User
     fields = ['username', 'email', 'password']
     success_url = reverse_lazy('success_view')  # Redirect to index after successful operation
+
+
+
