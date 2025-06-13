@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+    Set action parameter inside form only if you want to submit the form to a specific URL.
+    If you want to submit the form to the same URL, you can leave the action parameter empty or not set it at all.
+    If you want to submit the form to a specific URL, you can set the action parameter like this:
+    <form action="{% url 'signup' %}" method="post">
+    -->
+ <form  method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+    <!--  -->
+ </form>
+</body>
+</html>
