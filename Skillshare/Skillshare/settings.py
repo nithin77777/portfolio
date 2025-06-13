@@ -15,10 +15,10 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-PROJECT_DIR = os.path.join(BASE_DIR, 'Skillshare')
-TEMPLATES_DIR = os.path.join(PROJECT_DIR, 'templates')
+# PROJECT_DIR = os.path.join(BASE_DIR, 'Skillshare')
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Print the base directory for debugging purposes
-print("PROJECT_DIR:", PROJECT_DIR)
+# print("PROJECT_DIR:", PROJECT_DIR)
 print("BASE_DIR:", BASE_DIR)
 print("TEMPLATES_DIR:", TEMPLATES_DIR)
 
