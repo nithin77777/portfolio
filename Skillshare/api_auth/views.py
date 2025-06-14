@@ -29,15 +29,7 @@ def success_view(request):
     return HttpResponse("<h1>Success! User has been created/updated.</h1>")
 
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = SignupModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('success_view')  # or wherever you want to redirect
-    else:
-        form = SignupModelForm()
-    return render(request, 'signup_form.html', {'form': form})
+
 
 
 class UserView(CreateView):
@@ -47,10 +39,10 @@ class UserView(CreateView):
     This view supports creating, listing, updating, and deleting users.
     """
     
-    template_name = '../templates/signup_form.html'
+    template_name = 'signup_form.html'
     form_class = SignupModelForm
     model = User
-    fields = ['username', 'email', 'password']
+    
     success_url = reverse_lazy('success_view')  # Redirect to index after successful operation
 
     def form_valid(self, form):
