@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/css/bootstrap.min.css' %}" />
+
+</head>
+
+<body>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}">
+    <h1>Login Here</h1>
+
+    <form method="post">
+         {% csrf_token %}
+        <div class="container-md mt-5">
+            <div class="alert-danger">
+                {% if form.errors %}
+                <div class="message"><strong>Error!</strong> Please correct the errors below.</div>
+                {{ form.errors }}
+                {% endif %}
+                  
+            </div>
+            {{ form.as_p }}
+            <button type="submit btn-primary">Login</button>
+        </div>
+       
+      
+        
+    </form>
+
+    <script src="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
