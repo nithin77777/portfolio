@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SkillDesk{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/css/bootstrap.min.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">SkillDesk</a>
+            <div>
+                <a class="btn btn-outline-primary me-2" href="{% url 'signup' %}">Sign Up</a>
+                <a class="btn btn-outline-secondary" href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
