@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom apps
     'api_auth.apps.ApiAuthConfig',
+    'api_auth.apps.ApiAuthConfig',
+
 ]
 
 MIDDLEWARE = [
