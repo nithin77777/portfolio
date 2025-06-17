@@ -1,21 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils import timezone
 
 # Create your models here.
 
-class User(models.Model):
-    """
-    Represents a user in the Skillshare application.
-    
-    Attributes:
-        username (str): The username of the user.
-        email (str): The email address of the user.
-        password (str): The password of the user.
-    """
+
+class User(AbstractBaseUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
+    dob = models.DateField(null=True, blank=True)
+    login_state = models.BooleanField(default=False)
+    user_created_date = models.DateTimeField(default=timezone.now)
+
+    is_active = models.BooleanField(default=True)  # needed for login to work
+
+    # This tells Django to use 'username' to log in
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']  # required only for createsuperuser (not needed if you skip superuser)
 
     def __str__(self):
-        return str(self.username) + "is the created username"
-    
-    
+        return str(self.username)
