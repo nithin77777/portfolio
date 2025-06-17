@@ -4,6 +4,9 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth  import login, logout
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 # Assuming User model is defined in models.py
 from .models import User
 # Assuming forms are defined in forms.py
@@ -86,6 +89,15 @@ class LoginView(FormView):
         try:
             user = User.objects.get(username=username)
             if check_password(password, user.password):
+                user.last_login = timezone.now()
+                user.login_state = True
+                user.save(update_fields=['last_login', 'login_state'])
+                # Optionally, you can set the user in the session
+                login(self.request, user)
+                # Redirect to the success URL after login
+                # self.request.session['user_id'] = user.id  # Store user ID in session
+                # self.request.session['username'] = user.username  # Store username in session
+                # self.request.session['login_state'] = user.login_state  # Store login state in session
                 return super().form_valid(form)
             else:
                 form.add_error(None, "Invalid Password")
