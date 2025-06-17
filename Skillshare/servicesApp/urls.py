@@ -17,10 +17,11 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import ServiceListView
+from .views import ServiceListView, ServiceDetailView
 
 urlpatterns = [
     
    
     path('all/',ServiceListView.as_view(), name='services'),
+    path('<int:pk>/', ServiceDetailView.as_view(), name='service_detail'),
 ]
