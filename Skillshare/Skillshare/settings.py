@@ -33,6 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
+AUTH_USER_MODEL = 'api_auth.User'  # Use the custom user model
 
 # Application definition
 
