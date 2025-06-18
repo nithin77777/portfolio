@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import Service, Booking
 from .forms import BookingForm
@@ -47,7 +48,7 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
     form_class = BookingForm
     template_name = 'servicesApp/booking_form.html'
     login_url = 'login'
-    success_view = 'booking_success'
+    success_url = reverse_lazy('booking_success')
 
     def form_valid(self, form):
         '''
