@@ -65,3 +65,13 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
         '''
         messages.error(self.request, "There was an error with your booking. Please check the form.")
         return super().form_invalid(form) 
+
+
+
+#  Problem to Fix
+'''
+Booking Create View is not working as expected.
+Working even without login.
+It should only allow logged-in users to create a booking.
+It should redirect to the login page if the user is not logged in.
+'''
