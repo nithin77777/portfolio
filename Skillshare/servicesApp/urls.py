@@ -17,11 +17,12 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import ServiceListView, ServiceDetailView
+from .views import ServiceListView, ServiceDetailView, booking_success
 
 urlpatterns = [
     
    
     path('all/',ServiceListView.as_view(), name='services'),
     path('<int:pk>/', ServiceDetailView.as_view(), name='service_detail'),
+    path('/booking/thanks/', booking_success, name='booking_success'),
 ]

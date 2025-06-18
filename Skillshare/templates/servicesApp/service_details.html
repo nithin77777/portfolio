@@ -11,7 +11,7 @@
         <p class="lead">{{ service.service_description }}</p>
         <p class="text-muted">Price: ${{ service.service_price }}</p>
         <a href="{% url 'services' %}" class="btn btn-secondary">Back to Services</a>
-        
+       <a href="{% url 'booking' %}" class="btn-primary btn">Book Now</a> 
     </div>
 </div>
 {% endblock %}
