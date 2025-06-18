@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
-from .models import Service
+from .models import Service, Booking
 # Create your views here.
 
 class ServiceListView(ListView):
