@@ -48,7 +48,7 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
     model = Booking
     form_class = BookingForm
     template_name = 'servicesApp/booking_form.html'
-    login_url = reverse_lazy('auth:login')
+    login_url = reverse_lazy('login')
     success_url = reverse_lazy('booking_success')
 
     def form_valid(self, form):

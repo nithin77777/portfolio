@@ -87,7 +87,7 @@ class LoginView(FormView):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         try:
-            user = User.objects.get(username=username)
+            user = CustomUser.objects.get(username=username)
             if check_password(password, user.password):
                 user.last_login = timezone.now()
                 user.login_state = True
