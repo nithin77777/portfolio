@@ -44,11 +44,12 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
     The template used is 'servicesApp/booking_form.html'.
     The form is bound to the Booking model.
     '''
-    raise_exception = True 
+    raise_exception = False # If True: This will raise a 403 Forbidden error if the user is not logged in
     model = Booking
     form_class = BookingForm
     template_name = 'servicesApp/booking_form.html'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('login')  # Redirect to login page if not logged in
+    # print(login_url)
     success_url = reverse_lazy('booking_success')
 
     def form_valid(self, form):
