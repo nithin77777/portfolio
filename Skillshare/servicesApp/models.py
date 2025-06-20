@@ -1,6 +1,6 @@
 from django.db import models
 # models from other apps
-from api_auth.models import User
+from api_auth.models import CustomUser
 # Create your models here.
 
 class Service(models.Model):
@@ -15,7 +15,7 @@ class Service(models.Model):
 
 # Booking model to handle bookings for services
 class Booking(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookings')
+    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='bookings')
     service_booked = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='bookings')
     booking_date = models.DateField(blank=True, null=True)
 

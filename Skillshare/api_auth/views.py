@@ -8,7 +8,7 @@ from django.contrib.auth  import login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 # Assuming User model is defined in models.py
-from .models import User
+from .models import CustomUser
 # Assuming forms are defined in forms.py
 from .forms import SignupModelForm, LoginForm
 
@@ -43,7 +43,7 @@ class SignupView(CreateView):
 
     template_name = 'signup_form.html'
     form_class = SignupModelForm
-    model = User
+    model = CustomUser
 
     # Redirect to index after successful operation
     success_url = reverse_lazy('success_view')
@@ -102,7 +102,7 @@ class LoginView(FormView):
             else:
                 form.add_error(None, "Invalid Password")
             
-        except User.DoesNotExist:
+        except CustomUser.DoesNotExist:
             form.add_error(None, "User does not exist")
         return self.form_invalid(form)
 

@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import User  # importing model 
+from .models import CustomUser  # importing model 
 
 class SignupModelForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = CustomUser
         # fields = '__all__'  # Or specify fields like 
         fields = ['username', 'email', 'password']  # Specify the fields you want to include in the form
         widgets = {
