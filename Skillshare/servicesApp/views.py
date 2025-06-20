@@ -44,10 +44,11 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
     The template used is 'servicesApp/booking_form.html'.
     The form is bound to the Booking model.
     '''
+    raise_exception = True 
     model = Booking
     form_class = BookingForm
     template_name = 'servicesApp/booking_form.html'
-    login_url = 'login'
+    login_url = reverse_lazy('auth:login')
     success_url = reverse_lazy('booking_success')
 
     def form_valid(self, form):
