@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth  import login, logout
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth import lo
 from django.utils import timezone
 # Assuming User model is defined in models.py
 from .models import CustomUser
@@ -94,6 +94,8 @@ class LoginView(FormView):
                 user.save(update_fields=['last_login', 'login_state'])
                 # Optionally, you can set the user in the session
                 login(self.request, user)
+                user.login_state = True  # Set login state to True
+                user.save(update_fields=['login_state'])
                 # Redirect to the success URL after login
                 # self.request.session['user_id'] = user.id  # Store user ID in session
                 # self.request.session['username'] = user.username  # Store username in session
@@ -106,3 +108,17 @@ class LoginView(FormView):
             form.add_error(None, "User does not exist")
         return self.form_invalid(form)
 
+def custom_logout_view(request):
+    """
+    Handle user logout.
+
+    This view logs out the user and redirects to the index page.
+    """
+    if request.user.is_authenticated:
+        # Change login state to False
+        request.user.login_state = False
+        request.user.last_login = timezone.now()  # Update last login time
+        request.user.save(update_fields=['login_state','last_login'])
+    # Log out the user  
+        logout(request) 
+    return HttpResponse('<h1>You Have Been Logged Out</h1>')  # Redirect to the index page after logout
