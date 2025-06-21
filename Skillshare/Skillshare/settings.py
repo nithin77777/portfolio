@@ -92,11 +92,11 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',  # Replace with your database name
-        'USER': 'iamleading',  # Replace with your database user
-        'PASSWORD': 'mnsk',  # Replace with your database password
-        'HOST': 'localhost',  # Replace with your database host
-        'PORT': '5432',  # Default PostgreSQL port
+        'NAME': os.environ.get('DB_NAME', 'testdb'),
+        'USER': os.environ.get('DB_USER', 'iamleading'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
