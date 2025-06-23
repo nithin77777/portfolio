@@ -31,7 +31,10 @@ def success_view(request):
 
     This view is typically used to confirm that a user has been created or updated successfully.
     """
-    return HttpResponse("<h1>Success! User has been created/updated.</h1>")
+    response = HttpResponse("<h1>Success! User has been created/updated.</h1>")
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    return response
 
 
 class SignupView(CreateView):
@@ -74,6 +77,8 @@ class LoginView(FormView):
         This method checks the credentials and logs in the user if they are valid.
         """
         response = super().form_invalid(form)
+        # response.status_code throws an error if the form is invalid
+        # Uncomment the next line if you want to return a 400 status code for invalid form
         # response.status_code = 400
         return response
 
@@ -94,12 +99,7 @@ class LoginView(FormView):
                 user.save(update_fields=['last_login', 'login_state'])
                 # Optionally, you can set the user in the session
                 login(self.request, user)
-                user.login_state = True  # Set login state to True
-                user.save(update_fields=['login_state'])
-                # Redirect to the success URL after login
-                # self.request.session['user_id'] = user.id  # Store user ID in session
-                # self.request.session['username'] = user.username  # Store username in session
-                # self.request.session['login_state'] = user.login_state  # Store login state in session
+               
                 return super().form_valid(form)
             else:
                 form.add_error(None, "Invalid Password")
@@ -121,4 +121,5 @@ def custom_logout_view(request):
         request.user.save(update_fields=['login_state','last_login'])
     # Log out the user  
         logout(request) 
-    return HttpResponse('<h1>You Have Been Logged Out</h1>')  # Redirect to the index page after logout
+         # Redirect to the index page after logout
+    return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern
