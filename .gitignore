@@ -6,5 +6,6 @@ __pycache__
 *.pyc
 *.pyo
 migrations
-docker-volumes
+docker-volumes/
+**/docker-volumes/
 *.zip
