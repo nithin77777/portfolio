@@ -80,6 +80,9 @@ class LoginView(FormView):
         # response.status_code throws an error if the form is invalid
         # Uncomment the next line if you want to return a 400 status code for invalid form
         # response.status_code = 400
+        response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response['Pragma'] = 'no-cache'
+        response['Expires'] = '0'
         return response
 
 
@@ -107,6 +110,7 @@ class LoginView(FormView):
         except CustomUser.DoesNotExist:
             form.add_error(None, "User does not exist")
         return self.form_invalid(form)
+
 
 def custom_logout_view(request):
     """
