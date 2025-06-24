@@ -68,7 +68,7 @@ class LoginView(FormView):
 
     form_class = LoginForm
     template_name = 'login_form.html'
-    success_url = reverse_lazy('success_view')
+    success_url = reverse_lazy('services')
 
     def form_invalid(self, form):
         """
