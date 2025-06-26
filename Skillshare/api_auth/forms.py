@@ -20,12 +20,10 @@ class SignupModelForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=120, 
+    username = forms.CharField(max_length=120,
+                               label='Username', 
                                widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your username'}))
-    password = forms.CharField(max_length=120,min_length=8,
+    password = forms.CharField(label='Password',
+                               max_length=120,min_length=8,
                                widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter your password'}))
-    
-    labels = {
-        'username': 'Username',
-        'password': 'Password',
-    }
+ 
