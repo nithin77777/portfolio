@@ -49,7 +49,7 @@ class SignupView(CreateView):
     model = CustomUser
 
     # Redirect to index after successful operation
-    success_url = reverse_lazy('success_view')
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -126,4 +126,4 @@ def custom_logout_view(request):
     # Log out the user  
         logout(request) 
          # Redirect to the index page after logout
-    return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern
+        return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern
