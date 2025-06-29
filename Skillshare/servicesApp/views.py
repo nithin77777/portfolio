@@ -9,6 +9,7 @@ from django.contrib import messages
 
 from .models import Service, Booking
 from .forms import BookingForm
+from api_auth.models import CustomUser as User
 # Create your views here.
 
 
@@ -57,7 +58,12 @@ class BookingCreateView(LoginRequiredMixin,CreateView):
         This method is called when the form is valid.
         It sets the username field to the current user and saves the booking.
         '''
+        user = User.objects.get(username=self.request.user.username)
+        if not user.login_state:
+            messages.error(self.request, "You need to be logged in to book a service.")
+            return super().form_invalid(form)
         form.instance.username = self.request.user
+
         return super().form_valid(form)
     
     def form_invalid(self, form):
