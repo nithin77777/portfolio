@@ -1,89 +1,57 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, FormView
+from django.views.generic import CreateView, FormView
 from django.urls import reverse_lazy
-from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth  import login, logout
-# from django.contrib.auth import lo
+from django.contrib.auth import login, logout
 from django.utils import timezone
-# Assuming User model is defined in models.py
 from .models import CustomUser
-# Assuming forms are defined in forms.py
 from .forms import SignupModelForm, LoginForm
 
-# Create your views here.
 
-
-def index(req):
+def index(request):
     """
-    Render the index page.
+    Render the index page with error handling.
     """
-
-    return HttpResponse(
-        """<h1>Hello, world! This is the index page. </h1>"""
-    )
+    try:
+        return HttpResponse("""<h1>Hello, world! This is the index page. </h1>""")
+    except Exception:
+        return HttpResponse("<h1>Something went wrong. Please try again later.</h1>", status=500)
 
 
 def success_view(request):
     """
-    Render the success page after a successful operation.
-
-    This view is typically used to confirm that a user has been created or updated successfully.
+    Render the success page after a successful operation with error handling.
     """
-    return HttpResponse("<h1>Success! User has been created/updated.</h1>")
+    try:
+        return HttpResponse("<h1>Success! User has been created/updated.</h1>")
+    except Exception:
+        return HttpResponse("<h1>Something went wrong. Please try again later.</h1>", status=500)
 
 
 class SignupView(CreateView):
-    """
-    View for handling user-related operations.
-
-    This view supports creating, listing, updating, and deleting users.
-    """
-
     template_name = 'signup_form.html'
     form_class = SignupModelForm
     model = CustomUser
-
-    # Redirect to index after successful operation
     success_url = reverse_lazy('success_view')
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        # Assuming you have a function to hash passwords
         user.password = make_password(user.password)
         user.save()
         return super().form_valid(form)
 
 
 class LoginView(FormView):
-    """
-    View for handling user login.
-
-    This view displays the details of a user.
-    """
-
     form_class = LoginForm
     template_name = 'login_form.html'
     success_url = reverse_lazy('success_view')
 
     def form_invalid(self, form):
-        """
-        Handle the login form submission.
-
-        This method checks the credentials and logs in the user if they are valid.
-        """
         response = super().form_invalid(form)
-        # response.status_code = 400
         return response
 
-
     def form_valid(self, form):
-        """
-        Handle the login form submission.
-
-        This method checks the credentials and logs in the user if they are valid.
-        """
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
         try:
@@ -92,33 +60,26 @@ class LoginView(FormView):
                 user.last_login = timezone.now()
                 user.login_state = True
                 user.save(update_fields=['last_login', 'login_state'])
-                # Optionally, you can set the user in the session
                 login(self.request, user)
-                user.login_state = True  # Set login state to True
+                user.login_state = True
                 user.save(update_fields=['login_state'])
-                # Redirect to the success URL after login
-                # self.request.session['user_id'] = user.id  # Store user ID in session
-                # self.request.session['username'] = user.username  # Store username in session
-                # self.request.session['login_state'] = user.login_state  # Store login state in session
                 return super().form_valid(form)
             else:
                 form.add_error(None, "Invalid Password")
-            
         except CustomUser.DoesNotExist:
             form.add_error(None, "User does not exist")
-        return self.form_invalid(form)
+            return self.form_invalid(form)
 
 def custom_logout_view(request):
     """
-    Handle user logout.
-
-    This view logs out the user and redirects to the index page.
+    Handle user logout with error handling.
     """
-    if request.user.is_authenticated:
-        # Change login state to False
-        request.user.login_state = False
-        request.user.last_login = timezone.now()  # Update last login time
-        request.user.save(update_fields=['login_state','last_login'])
-    # Log out the user  
-        logout(request) 
-    return HttpResponse('<h1>You Have Been Logged Out</h1>')  # Redirect to the index page after logout
+    try:
+        if request.user.is_authenticated:
+            request.user.login_state = False
+            request.user.last_login = timezone.now()
+            request.user.save(update_fields=['login_state','last_login'])
+            logout(request)
+        return HttpResponse('<h1>You Have Been Logged Out</h1>')
+    except Exception:
+        return HttpResponse("<h1>Something went wrong during logout. Please try again later.</h1>", status=500)
