@@ -13,11 +13,4 @@ class Service(models.Model):
     def __str__(self):
         return str(self.service_name)
 
-# Booking model to handle bookings for services
-class Booking(models.Model):
-    username = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='bookings')
-    service_booked = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='bookings')
-    booking_date = models.DateField(blank=True, null=True)
-
-    def __str__(self):
-        return str(self.username) + ' booked' + str(self.service_booked) + ' on ' + str(self.booking_date)
+    

@@ -5,9 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-from .models import Service, Booking
-from .forms import BookingForm
-
+# from .models import Service, Booking
+# from .forms import BookingForm
+from .models import Service
 
 def booking_success(request):
     '''
@@ -32,6 +32,7 @@ class ServiceDetailView(DetailView):
     template_name = 'servicesApp/service_details.html'
     context_object_name = 'service'
 
+"""
 class BookingCreateView(LoginRequiredMixin, CreateView):
     '''
     View to create a new booking.
@@ -55,3 +56,4 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
         messages.error(self.request, "There was an error with your booking. Please check the form.")
         return super().form_invalid(form)
 
+"""
