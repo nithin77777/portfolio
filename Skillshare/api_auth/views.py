@@ -59,13 +59,12 @@ class LoginView(FormView):
             if check_password(password, user.password):
                 user.last_login = timezone.now()
                 user.login_state = True
-                user.save(update_fields=['last_login', 'login_state'])
+                user.save(update_fields=['login_state','last_login'])
                 login(self.request, user)
-                user.login_state = True
-                user.save(update_fields=['login_state'])
                 return super().form_valid(form)
             else:
                 form.add_error(None, "Invalid Password")
+                return self.form_invalid(form)
         except CustomUser.DoesNotExist:
             form.add_error(None, "User does not exist")
             return self.form_invalid(form)
