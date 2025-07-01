@@ -1,14 +1,19 @@
 from django import forms
-from .models import UserBooking
+from .models import Service
+from booking.models import UserBooking
 
-class UserBookingForm(forms.ModelForm):
+'''
+Doing a Form For Booking
+This form is used to create a new booking for a service.
+It inherits from forms.ModelForm and is bound to the Booking model.
+'''
+
+class BookingForm(forms.ModelForm):
     class Meta:
         model = UserBooking
-        fields = ['user', 'service', 'booking_date']
+        fields = ['username', 'service', 'booking_date']
         widgets = {
-            'booking_date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
-            'user': forms.TextInput(attrs={'class': 'form-control'}),
             'service': forms.Select(attrs={'class': 'form-control'}),
+            'booking_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
-
-   
+        
