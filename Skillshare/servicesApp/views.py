@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -8,6 +8,7 @@ from django.contrib import messages
 # from .models import Service, Booking
 # from .forms import BookingForm
 from .models import Service
+from .forms import ServiceCreateForm
 
 def booking_success(request):
     '''
@@ -33,18 +34,30 @@ class ServiceDetailView(DetailView):
     context_object_name = 'service'
 
 
-class ServiceCreateView(LoginRequiredMixin, CreateView):
+class ServiceCreateView(LoginRequiredMixin, FormView):
     '''
     View to create a new service.
     Only accessible to logged-in users.
     '''
-    model = Service
-    template_name = 'servicesApp/service_form.html'
+    form_class = ServiceCreateForm
+    template_name = 'servicesApp/create_service_form.html'
     fields = ['name', 'description', 'price']
-    success_url = reverse_lazy('service_list')
+    success_url = reverse_lazy('services')
 
     def form_valid(self, form):
+
+        service_name = form.cleaned_data['service_name']
+        service_description = form.cleaned_data['service_description']
+        service_price = form.cleaned_data['service_price']
+
+        
         if self.request.user.is_authenticated and self.request.user.is_superuser:
+            
+            service = Service.objects.create(
+            service_name=service_name,
+            service_description=service_description,
+            service_price=service_price
+        )
             return super().form_valid(form)
         
     def form_invalid(self, form):
