@@ -14,6 +14,10 @@
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}">SkillDesk</a>
             <div>
+                {% if request.user.is_authenticated and request.user.is_admin %}
+                <a class="btn btn-outline-primary me-2" href="{% url 'create_service' %}">Create Service</a>
+                {% endif %}
+                
                 {% if request.user.is_authenticated %}
                 <a class="btn btn-outline-secondary" href="{% url 'logout' %}">Logout</a>
                 {% else %}
