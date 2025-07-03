@@ -32,28 +32,22 @@ class ServiceDetailView(DetailView):
     template_name = 'servicesApp/service_details.html'
     context_object_name = 'service'
 
-"""
-class BookingCreateView(LoginRequiredMixin, CreateView):
+
+class ServiceCreateView(LoginRequiredMixin, CreateView):
     '''
-    View to create a new booking.
+    View to create a new service.
+    Only accessible to logged-in users.
     '''
-    raise_exception = False
-    model = Booking
-    form_class = BookingForm
-    template_name = 'servicesApp/booking_form.html'
-    login_url = reverse_lazy('login')
-    success_url = reverse_lazy('booking_success')
+    model = Service
+    template_name = 'servicesApp/service_form.html'
+    fields = ['name', 'description', 'price']
+    success_url = reverse_lazy('service_list')
 
     def form_valid(self, form):
-        try:
-            form.instance.username = self.request.user
+        if self.request.user.is_authenticated and self.request.user.is_superuser:
             return super().form_valid(form)
-        except Exception:
-            messages.error(self.request, "An unexpected error occurred. Please try again later.")
-            return self.form_invalid(form)
-    
+        
     def form_invalid(self, form):
-        messages.error(self.request, "There was an error with your booking. Please check the form.")
+        messages.error(self.request, 'There was an error creating the service. Please check the form and try again.')
         return super().form_invalid(form)
-
-"""
+    
