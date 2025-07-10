@@ -1,3 +1,6 @@
+# Untracked Files In Development
+loginFix.py
+# Essential Files to Untrack
 non-essentials
 .vscode
 .venv

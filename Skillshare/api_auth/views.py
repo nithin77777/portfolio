@@ -68,7 +68,7 @@ class LoginView(FormView):
 
     form_class = LoginForm
     template_name = 'login_form.html'
-    success_url = reverse_lazy('services')  # Redirect to services page after login
+    success_url = reverse_lazy('services')
 
     def form_invalid(self, form):
         """
@@ -118,6 +118,7 @@ class LoginView(FormView):
         response['Expires'] = '0'
         return response
 
+
 def custom_logout_view(request):
     """
     Handle user logout.
@@ -125,11 +126,11 @@ def custom_logout_view(request):
     This view logs out the user and redirects to the index page.
     """
     if request.user.is_authenticated:
-        # Change login state to False
+        # Change login state to False as this is Logout
         request.user.login_state = False
         request.user.last_login = timezone.now()  # Update last login time
         request.user.save(update_fields=['login_state','last_login'])
     # Log out the user  
         logout(request) 
          # Redirect to the index page after logout
-    return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern
+        return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern

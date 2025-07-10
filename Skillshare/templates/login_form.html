@@ -1,19 +1,11 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/css/bootstrap.min.css' %}" />
 
-</head>
+{% block title %}Login Form{% endblock %}
 
-<body>
-    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}">
-    <h1>Login Here</h1>
-
+{% block content %}
+<h2 class="text-center">Login Here</h2>
     <form method="post">
          {% csrf_token %}
         <div class="container-md mt-5">
@@ -31,8 +23,4 @@
       
         
     </form>
-
-    <script src="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}"></script>
-</body>
-
-</html>
+{% endblock %}
