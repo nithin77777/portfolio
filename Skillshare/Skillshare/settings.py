@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-(-dkhk0e8-fyrww31gr*%5*$q3%6z(51@5o-kuhxbt=c^3c+3@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","myserverhost.com"]
+ALLOWED_HOSTS = ["127.0.0.2","localhost","myserverhost.com","127.0.0.1"]
 
 AUTH_USER_MODEL = 'api_auth.CustomUser'  # Use the custom user model
 
@@ -82,14 +82,7 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+# https://docs.djangoproject.com/en/5.2/ref/settings/databases
 
 DATABASES = {
     'default': {
@@ -97,15 +90,28 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'testdb'),
         'USER': os.environ.get('DB_USER', 'iamleading'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
         'PORT': os.environ.get('DB_PORT', '5432'),
-    },
-    'default-no': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+# Database AWS
+'''
+# DATABASE#S = {
+#     'defaault': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'testdb'),
+#         'USER': os.environ.get('DB_USER', 'iamleading'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
+#         'HOST': os.environ.get('DB_HOST', 'localhost'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     },
+#     'default-no': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
