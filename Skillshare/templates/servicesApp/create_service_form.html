@@ -6,6 +6,8 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Create Service</button>
+
     </form>
     <a href="{% url 'services' %}" class="btn btn-secondary mt-3">Back to Service List</a>
 </div>
