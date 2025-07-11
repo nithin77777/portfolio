@@ -84,14 +84,21 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/databases
 
-DATABASES = {
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'testdb'),
+#         'USER': os.environ.get('DB_USER', 'iamleading'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
+#         'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     }
+# }
+
+DATABASES= { 
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'testdb'),
-        'USER': os.environ.get('DB_USER', 'iamleading'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
-        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -112,6 +119,17 @@ DATABASES = {
 #     }
 # }
 '''
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
+EMAIL_PORT = 587                 # Common port for TLS
+EMAIL_USE_TLS = True             # Use TLS encryption
+EMAIL_HOST_USER = 'nithinsaikrishna98@gmail.com'  # Your email address for authentication
+EMAIL_HOST_PASSWORD = 'fcia ofhv jtpi fxqf' # Your email password or app password
+# DEFAULT_FROM_EMAIL = 'default_sender@example.com' # Optional: Default sender if not specified in send_mail
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
