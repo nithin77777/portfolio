@@ -1,5 +1,4 @@
 from django.db import models
-
 from api_auth.models import CustomUser
 from servicesApp.models import Service
 
@@ -12,3 +11,5 @@ class UserBooking(models.Model):
 
     def __str__(self):
         return f"Booking by {self.user} for {self.service} on {self.booking_date}"
+
+
