@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Services  Details{% endblock %}
-
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Services Details{% endblock %} 
 {% block content %}
 <div class="container-md">
-    <div class="md">
-        <h1 class="mt-5">{{ service.service_name }}</h1>
-        <p class="lead">{{ service.service_description }}</p>
-        <p class="text-muted">Price: ${{ service.service_price }}</p>
-        <a href="{% url 'services' %}" class="btn btn-secondary">Back to Services</a>
-    </div>
+	<div class="md">
+		<h1 class="mt-5">{{ service.service_name }}</h1>
+		<p class="lead">{{ service.service_description }}</p>
+		<p class="text-muted">Price: ${{ service.service_price }}</p>
+		<a href="{% url 'booking_create' %}" class="btn btn-success"
+			>Book a Service</a
+		>
+		<a href="{% url 'services' %}" class="btn btn-secondary"
+			>Back to Services</a
+		>
+	</div>
 </div>
 {% endblock %}
-       <!-- <a href="{% url 'booking' %}" class="btn-primary btn">Book Now</a>  -->
+<!-- <a href="{% url 'booking' %}" class="btn-primary btn">Book Now</a>  -->
