@@ -6,21 +6,22 @@
 
 {% block content %}
 <h2 class="text-center">Login Here</h2>
-    <form method="post">
-         {% csrf_token %}
-        <div class="container-md mt-5">
-            <div class="alert-danger">
-                {% if form.errors %}
-                <div class="message"><strong>Error!</strong> Please correct the errors below.</div>
-                {{ form.errors }}
-                {% endif %}
-                  
-            </div>
-            {{ form.as_p }}
-            <button type="submit" class="btn-primary">Login</button>
+<form method="post">
+    {% csrf_token %}
+    <div class="container-md mt-5">
+        <div class="alert-danger">
+            {% if form.errors %}
+            <div class="message"><strong>Error!</strong> Please correct the errors below.</div>
+            {{ form.errors }}
+            {% endif %}
+
         </div>
-       
-      
-        
-    </form>
+        {{ form.as_p }}
+        <button type="submit" class="btn-primary">Login</button>
+        <a href="{% url 'forgot_password' %}" class="btn btn-link ms-3">Forgot Password?</a>
+    </div>
+
+
+
+</form>
 {% endblock %}
