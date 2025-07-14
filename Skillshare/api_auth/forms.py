@@ -26,3 +26,10 @@ class LoginForm(forms.Form):
     password = forms.CharField(label='Password',
                                max_length=120,min_length=8,
                                widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter your password'}))
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(max_length=120,
+        label='Enter Your Email',
+        widget=forms.TextInput(
+            attrs={'class':'form-control', 'placeholder':'Enter Your Email'}))
