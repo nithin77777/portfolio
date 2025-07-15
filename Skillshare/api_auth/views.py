@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import make_password, check_password
@@ -11,7 +12,7 @@ from django import forms
 # Assuming User model is defined in models.py
 from .models import CustomUser
 # Assuming forms are defined in forms.py
-from .forms import SignupModelForm, LoginForm, ForgotPasswordForm
+from .forms import SignupModelForm, LoginForm,UpdatePasswordForm 
 
 # Create your views here.
 
@@ -137,38 +138,30 @@ def custom_logout_view(request):
         return redirect('login')  # Assuming 'login_view' is the name of your login URL pattern
     
 
-class PasswordResetView(FormView):
+class UpdatePasswordView(LoginRequiredMixin, FormView):
     """
-    View for handling password reset requests.
+    View for updating the user's password.
     """
-    template_name = 'forgot_password_form.html'
-    form_class = ForgotPasswordForm
+    template_name = 'update_password_form.html'
+    form_class = UpdatePasswordForm
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
-        email = form.cleaned_data['email']
-        User = get_user_model()
+        user = self.request.user
 
-
-# class UpdatePasswordForm(forms.Form):
-#     new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
-#     confirm_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
-
-# class UpdatePasswordView(FormView):
-#     """
-#     View for updating the user's password.
-#     """
-#     template_name = 'update_password_form.html'
-#     form_class = UpdatePasswordForm
-#     success_url = reverse_lazy('login')
-
-#     def form_valid(self, form):
-#         new_password = form.cleaned_data['new_password']
-#         confirm_password = form.cleaned_data['confirm_password']
-#         if new_password != confirm_password:
-#             form.add_error('confirm_password', 'Passwords do not match.')
-#             return self.form_invalid(form)
-#         user = self.request.user
-#         user.password = make_password(new_password)
-#         user.save(update_fields=['password'])
-#         return super().form_valid(form)
+        if user.is_authenticated:
+            new_password = form.cleaned_data['new_password']
+            confirm_password = form.cleaned_data['confirm_password']
+            if new_password != confirm_password:
+                form.add_error('confirm_password', 'Passwords do not match.')
+                return self.form_invalid(form)
+            old_password = form.cleaned_data['old_password']
+            if not user.check_password(old_password):
+                form.add_error('old_password', 'Old password is incorrect.')
+                return self.form_invalid(form)
+            user.password = make_password(new_password)
+            user.save(update_fields=['password'])
+            return super().form_valid(form)
+        else:
+            form.add_error(None, 'You must be logged in to change your password.')
+            return self.form_invalid(form)
