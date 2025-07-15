@@ -8,16 +8,18 @@ class SignupModelForm(forms.ModelForm):
         model = CustomUser
         # fields = '__all__'  # Or specify fields like
         # Specify the fields you want to include in the form
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'is_provider']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your username'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your password'}),
+            'is_provider': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'username': 'Username',
             'email': 'Email Address',
             'password': 'Password',
+            'is_provider': 'Are you a provider?'
         }
 
 

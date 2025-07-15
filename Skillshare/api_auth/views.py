@@ -46,7 +46,7 @@ class SignupView(CreateView):
     This view supports creating, listing, updating, and deleting users.
     """
 
-    template_name = 'signup_form.html'
+    template_name = 'api_auth/signup_form.html'
     form_class = SignupModelForm
     model = CustomUser
 
@@ -69,7 +69,7 @@ class LoginView(FormView):
     """
 
     form_class = LoginForm
-    template_name = 'login_form.html'
+    template_name = 'api_auth/login_form.html'
     success_url = reverse_lazy('services')
 
     def form_invalid(self, form):
@@ -142,7 +142,7 @@ class UpdatePasswordView(LoginRequiredMixin, FormView):
     """
     View for updating the user's password.
     """
-    template_name = 'update_password_form.html'
+    template_name = 'api_auth/update_password_form.html'
     form_class = UpdatePasswordForm
     success_url = reverse_lazy('login')
 

@@ -15,6 +15,8 @@ class CustomUserManager(BaseUserManager):
         Creates and returns a user with an email, username, and password.
         """
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_admin', False)
+        extra_fields.setdefault('is_provider', False)
         extra_fields.setdefault('login_state', False)
         extra_fields.setdefault('user_created_date', timezone.now())
         if not username:
@@ -52,9 +54,10 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    
+
    # personal information fields for the user
     is_active = models.BooleanField(default=True)  # needed for login to work
+    is_provider = models.BooleanField(default=False)  # custom field for provider status
     login_state = models.BooleanField(default=False)
     user_created_date = models.DateTimeField(default=timezone.now)
 

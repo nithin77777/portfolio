@@ -14,7 +14,7 @@
         <div class="container">
             <a class="navbar-brand text-light" href="{% url 'index' %}">SkillDesk</a>
             <div>
-                {% if request.user.is_authenticated and request.user.is_admin %}
+                {% if request.user.is_authenticated and request.user.is_provider %}
                 <a class="btn btn-outline-primary me-2" href="{% url 'create_service' %}">Create Service</a>
                 {% endif %}
                 
