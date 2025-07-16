@@ -26,10 +26,10 @@ print("TEMPLATES_DIR:", TEMPLATES_DIR)
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(-dkhk0e8-fyrww31gr*%5*$q3%6z(51@5o-kuhxbt=c^3c+3@'
+SECRET_KEY = 'a49987d77bd8()2b4ebd3259%$7fc9ab7d8074ae5aa0a12143@@937ab557de64a40696d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.2","localhost","myserverhost.com","127.0.0.1"]
 
@@ -84,43 +84,25 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'testdb'),
-#         'USER': os.environ.get('DB_USER', 'iamleading'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
-#         'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
-#     }
-# }
 
-DATABASES= { 
+
+
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'testdb'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
 # Database AWS
-'''
-# DATABASE#S = {
-#     'defaault': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'testdb'),
-#         'USER': os.environ.get('DB_USER', 'iamleading'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', 'mnsk'),
-#         'HOST': os.environ.get('DB_HOST', 'localhost'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
-#     },
-#     'default-no': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-'''
 
-# settings.py
+
+
+# Email settings.py
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
@@ -166,7 +148,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+# Static and media files for Docker
+# STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # If you want to collect static files in one place (optional but good for production)
 STATICFILES_DIRS = [
     BASE_DIR / "static",
