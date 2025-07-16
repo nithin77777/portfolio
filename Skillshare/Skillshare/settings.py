@@ -31,7 +31,7 @@ SECRET_KEY = 'a49987d77bd8()2b4ebd3259%$7fc9ab7d8074ae5aa0a12143@@937ab557de64a4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.2","localhost","myserverhost.com","127.0.0.1"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "myserverhost.com"]
 
 AUTH_USER_MODEL = 'api_auth.CustomUser'  # Use the custom user model
 
