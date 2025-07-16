@@ -38,3 +38,4 @@ class ForgotPasswordView(FormView):
         except User.DoesNotExist:
             form.add_error('email', 'No user found with this email address.')
             return self.form_invalid(form)
+SECRET_KEY = 'a49987d77bd8()2b4ebd3259%$7fc9ab7d8074ae5aa0a12143@@937ab557de64a40696d'

@@ -1,13 +1,33 @@
-FROM python:3.10-alpine3.20
-# Set the working directory
-WORKDIR /project
-# Copy the requirements file into the container
-COPY ./requirements.txt ./
-# Install the dependencies
-RUN pip install --no-cache-dir -r ./requirements.txt
-# Copy the rest of the application code into the container
-COPY . .
-# Expose the port the app runs on
+
+# Use Ubuntu as the base image
+FROM ubuntu:22.04
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y python3 python3-pip python3-dev libpq-dev gcc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
+WORKDIR /app
+
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip3 install --upgrade pip \
+    && pip3 install --no-cache-dir -r requirements.txt gunicorn
+
+# Copy project
+COPY . /app/
+
+# Collect static files
+RUN python3 manage.py collectstatic --noinput || true
+
+# Expose port
 EXPOSE 8000
-# Optionally add a default command to run the Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# Start Gunicorn
+CMD ["gunicorn", "Skillshare.wsgi:application", "--bind", "0.0.0.0:8000"]

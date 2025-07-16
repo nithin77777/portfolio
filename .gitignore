@@ -12,3 +12,4 @@ migrations
 docker-volumes/
 **/docker-volumes/
 *.zip
+containerization
