@@ -13,18 +13,19 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Set work directory
-WORKDIR /app
+WORKDIR /Skillshare
 
 # Install Python dependencies
-COPY requirements.txt /app/
+COPY requirements.txt ./
 RUN pip3 install --upgrade pip \
     && pip3 install --no-cache-dir -r requirements.txt gunicorn
 
 # Copy project
-COPY . /app/
+COPY . .
 
 # Collect static files
 RUN python3 manage.py collectstatic --noinput || true
+
 
 # Expose port
 EXPOSE 8000

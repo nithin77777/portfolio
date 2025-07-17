@@ -18,14 +18,15 @@ from .forms import SignupModelForm, LoginForm,UpdatePasswordForm
 
 
 def index(req):
+
+    return redirect('signup')
+
+def healthView(req):
     """
     Render the index page.
     """
 
-    return HttpResponse(
-        """<h1>Hello, world! This is the index page. </h1>"""
-    )
-
+    return render(req, "healthcheck.html", status=200)
 
 def success_view(request):
     """

@@ -21,6 +21,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # print("PROJECT_DIR:", PROJECT_DIR)
 print("BASE_DIR:", BASE_DIR)
 print("TEMPLATES_DIR:", TEMPLATES_DIR)
+# print("Bootstrap_DIR:", TEMPLATES_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -31,7 +32,7 @@ SECRET_KEY = 'a49987d77bd8()2b4ebd3259%$7fc9ab7d8074ae5aa0a12143@@937ab557de64a4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "myserverhost.com"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "myserverhost.com"]
 
 AUTH_USER_MODEL = 'api_auth.CustomUser'  # Use the custom user model
 
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Skillshare.urls'
@@ -85,18 +87,23 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/databases
 
 
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'testdb'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'testdb'),
+#         'USER': os.environ.get('DB_USER', 'postgres'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+#         'HOST': os.environ.get('DB_HOST', 'db'),
+#         'PORT': os.environ.get('DB_PORT', '5432'),
+#     }
+# }
 
 # Database AWS
 
@@ -149,6 +156,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
