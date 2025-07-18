@@ -27,7 +27,7 @@ print("TEMPLATES_DIR:", TEMPLATES_DIR)
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a49987d77bd8()2b4ebd3259%$7fc9ab7d8074ae5aa0a12143@@937ab557de64a40696d'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -89,21 +89,14 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT", 5432),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'testdb'),
-#         'USER': os.environ.get('DB_USER', 'postgres'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-#         'HOST': os.environ.get('DB_HOST', 'db'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
-#     }
-# }
 
 # Database AWS
 
@@ -115,8 +108,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
 EMAIL_PORT = 587                 # Common port for TLS
 EMAIL_USE_TLS = True             # Use TLS encryption
-EMAIL_HOST_USER = 'nithinsaikrishna98@gmail.com'  # Your email address for authentication
-EMAIL_HOST_PASSWORD = 'fcia ofhv jtpi fxqf' # Your email password or app password
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  # Your email address for authentication
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD") # Your email password or app password
 # DEFAULT_FROM_EMAIL = 'default_sender@example.com' # Optional: Default sender if not specified in send_mail
 
 

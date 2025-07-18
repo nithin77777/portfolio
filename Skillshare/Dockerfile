@@ -1,6 +1,6 @@
 
 # Use Ubuntu as the base image
-FROM ubuntu:22.04
+FROM python:3.13.0-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -8,17 +8,18 @@ ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y python3 python3-pip python3-dev libpq-dev gcc \
+    && apt-get install -y python3 python3-pip python3-dev libpq-dev gcc build-essential \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Set work directory
-WORKDIR /Skillshare
+WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt ./
+COPY requirements.txt .
+
 RUN pip3 install --upgrade pip \
-    && pip3 install --no-cache-dir -r requirements.txt gunicorn
+    && pip3 install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY . .
