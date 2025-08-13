@@ -30,9 +30,9 @@ print("TEMPLATES_DIR:", TEMPLATES_DIR)
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "myserverhost.com"]
+ALLOWED_HOSTS = ["ec2-13-235-121-37.ap-south-1.compute.amazonaws.com","13.235.121.37","0.0.0.0", "127.0.0.1", "clicknithin.fun", "www.clicknithin.fun"]
 
 AUTH_USER_MODEL = 'api_auth.CustomUser'  # Use the custom user model
 
@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'Skillshare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT", 5432),
+        'NAME': 'db_main',
+        'USER': 'ubuntu',
+        'PASSWORD': 'mnsk1234',
+        'HOST': '14.0.0.134',
+        'PORT': 5432,
     }
 }
 
@@ -108,8 +108,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP host
 EMAIL_PORT = 587                 # Common port for TLS
 EMAIL_USE_TLS = True             # Use TLS encryption
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  # Your email address for authentication
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD") # Your email password or app password
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Your email address for authentication
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD") # Your email password or app password
 # DEFAULT_FROM_EMAIL = 'default_sender@example.com' # Optional: Default sender if not specified in send_mail
 
 

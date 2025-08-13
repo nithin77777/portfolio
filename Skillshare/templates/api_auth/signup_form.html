@@ -1,18 +1,8 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Sign Up{% endblock %}
 
-<head>
-    <link rel="stylesheet" href="{% static 'bootstrap-5.3.6/css/bootstrap.min.css' %}" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-</head>
-
-<body>
-
-
-
+{% block content %}
     <div class="container-md mt-5" style="max-width: 90%; width: 50%;">
         <h2>Sign Up</h2>
         <form method="post">
@@ -27,15 +17,6 @@
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
     </div>
-    </div>
 
-    <script src="{% static 'bootstrap-5.3.6/js/bootstrap.bundle.min.js' %}"></script>
-</body>
+{% endblock %}
 
-</html>
-<!-- 
-    Set action parameter inside form only if you want to submit the form to a specific URL.
-    If you want to submit the form to the same URL, you can leave the action parameter empty or not set it at all.
-    If you want to submit the form to a specific URL, you can set the action parameter like this:
-    <form action="{% url 'signup' %}" method="post">
-    -->
